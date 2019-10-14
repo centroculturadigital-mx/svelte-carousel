@@ -1,5 +1,5 @@
 {
-  "name": "@beyonk/svelte-carousel",
+  "name": "@centroculturadigital-mx/svelte-carousel",
   "svelte": "src/Carousel.svelte",
   "module": "dist/index.mjs",
   "main": "dist/index.js",
@@ -29,7 +29,7 @@
     "flickity",
     "siema"
   ],
-  "repository": "github:beyonk-adventures/svelte-carousel",
+  "repository": "github:centroculturadigital-mx/svelte-carousel",
   "files": [
     "src",
     "dist/index.js",
