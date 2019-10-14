@@ -99,12 +99,12 @@
 		display: flex;
 		justify-content: center;
 		width: 100%;
-		margin-top: -30px;
+		margin: 1rem;
 		padding: 0;
 	}
 
 	ul li {
-		margin: 6px;
+		margin: .5rem;
 		border-radius: 100%;
 		background-color: rgba(255,255,255,0.5);
 		height: 8px;
