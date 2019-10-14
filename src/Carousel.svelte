@@ -1,6 +1,52 @@
+<script>
+
+	import Siema from 'siema'
+
+	import { tap } from '@sveltejs/gestures';
+
+	import { onMount } from 'svelte'
+	
+	export let perPage = 3
+	export let loop = true
+	export let autoplay = 0
+
+	let siema
+	let controller
+	let timer
+
+	$: pips = controller ? controller.innerElements : []
+	
+	onMount(() => {
+		controller = new Siema({
+			selector: siema,
+			perPage,
+			loop
+		})
+
+		autoplay && setInterval(right, autoplay)
+
+		return () => {
+			autoplay && clearTimeout(timer)
+			controller.destroy()
+		}
+	})
+	
+	function left () {
+		controller.prev()
+	}
+	
+	function right () {
+		controller.next()
+	}
+
+	function go (index) {
+		controller.goTo(index)
+	}
+</script>
+
 
 <div class="carousel">
-	<button class="left" on:click={left}>
+	<button class="left" use:tap on:tap={left}>
 		<slot name="left-control"></slot>
 	</button>
 	<div class="slides" bind:this={siema}>
@@ -8,10 +54,10 @@
 	</div>
 	<ul>
 		{#each pips as pip, i}
-		<li on:click={() => go(i)}></li>
+		<li use:tap on:tap={() => go(i)}></li>
 		{/each}
 	</ul>
-	<button class="right" on:click={right}>
+	<button class="right" use:tap on:tap={right}>
 		<slot name="right-control"></slot>
 	</button>
 </div>
@@ -69,46 +115,3 @@
 		background-color: rgba(255,255,255,0.85);
 	}
 </style>
-
-<script>
-	import Siema from 'siema'
-	import { onMount } from 'svelte'
-	
-	export let perPage = 3
-	export let loop = true
-	export let autoplay = 0
-
-	let siema
-	let controller
-	let timer
-
-	$: pips = controller ? controller.innerElements : []
-	
-	onMount(() => {
-		controller = new Siema({
-			selector: siema,
-			perPage,
-			loop
-		})
-
-console.log(autoplay)
-		autoplay && setInterval(right, autoplay)
-
-		return () => {
-			autoplay && clearTimeout(timer)
-			controller.destroy()
-		}
-	})
-	
-	function left () {
-		controller.prev()
-	}
-	
-	function right () {
-		controller.next()
-	}
-
-	function go (index) {
-		controller.goTo(index)
-	}
-</script>
