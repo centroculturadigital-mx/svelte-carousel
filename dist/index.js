@@ -419,8 +419,8 @@
 
     function add_css() {
     	var style = element("style");
-    	style.id = 'svelte-6pleld-style';
-    	style.textContent = ".carousel.svelte-6pleld{position:relative;width:100%;justify-content:center;align-items:center}button.svelte-6pleld{position:absolute;width:40px;height:40px;top:50%;z-index:50;margin-top:-20px;border:none;background-color:transparent}button.svelte-6pleld:focus{outline:none}.left.svelte-6pleld{left:2vw}.right.svelte-6pleld{right:2vw}ul.svelte-6pleld{list-style-type:none;position:absolute;display:flex;justify-content:center;width:100%;margin-top:-30px;padding:0}ul.svelte-6pleld li.svelte-6pleld{margin:6px;border-radius:100%;background-color:rgba(255,255,255,0.5);height:8px;width:8px}ul.svelte-6pleld li.svelte-6pleld:hover{background-color:rgba(255,255,255,0.85)}";
+    	style.id = 'svelte-8jeu7n-style';
+    	style.textContent = ".carousel.svelte-8jeu7n{position:relative;width:100%;justify-content:center;align-items:center}button.svelte-8jeu7n{position:absolute;width:40px;height:40px;top:50%;z-index:50;margin-top:-20px;border:none;background-color:transparent}button.svelte-8jeu7n:focus{outline:none}.left.svelte-8jeu7n{left:2vw}.right.svelte-8jeu7n{right:2vw}ul.svelte-8jeu7n{list-style-type:none;position:absolute;display:flex;justify-content:center;width:100%;margin:1rem;padding:0}ul.svelte-8jeu7n li.svelte-8jeu7n{margin:.5rem;border-radius:100%;background-color:rgba(255,255,255,0.5);height:8px;width:8px}ul.svelte-8jeu7n li.svelte-8jeu7n:hover{background-color:rgba(255,255,255,0.85)}";
     	append(document.head, style);
     }
 
@@ -448,7 +448,7 @@
     	return {
     		c() {
     			li = element("li");
-    			attr(li, "class", "svelte-6pleld");
+    			attr(li, "class", "svelte-8jeu7n");
     			dispose = listen(li, "tap", tap_handler);
     		},
 
@@ -514,13 +514,13 @@
 
     			if (right_control_slot) right_control_slot.c();
 
-    			attr(button0, "class", "left svelte-6pleld");
+    			attr(button0, "class", "left svelte-8jeu7n");
 
     			attr(div0, "class", "slides");
-    			attr(ul, "class", "svelte-6pleld");
+    			attr(ul, "class", "svelte-8jeu7n");
 
-    			attr(button1, "class", "right svelte-6pleld");
-    			attr(div1, "class", "carousel svelte-6pleld");
+    			attr(button1, "class", "right svelte-8jeu7n");
+    			attr(div1, "class", "carousel svelte-8jeu7n");
 
     			dispose = [
     				listen(button0, "tap", ctx.left),
@@ -725,7 +725,7 @@
     class Carousel extends SvelteComponent {
     	constructor(options) {
     		super();
-    		if (!document.getElementById("svelte-6pleld-style")) add_css();
+    		if (!document.getElementById("svelte-8jeu7n-style")) add_css();
     		init(this, options, instance, create_fragment, safe_not_equal, ["perPage", "loop", "autoplay"]);
     	}
     }
