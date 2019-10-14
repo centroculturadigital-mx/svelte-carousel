@@ -1,3 +1,3 @@
 # Svelte-Carousel
 
-Adaptado para usar @svelte/gestures
+Adapted for using @svelte/gestures
