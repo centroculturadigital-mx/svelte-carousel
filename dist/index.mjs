@@ -431,7 +431,7 @@ function get_each_context(ctx, list, i) {
 const get_left_control_slot_changes = ({}) => ({});
 const get_left_control_slot_context = ({}) => ({});
 
-// (123:2) {#each pips as pip, i}
+// (122:2) {#each pips as pip, i}
 function create_each_block(ctx) {
 	var li, tap_action, dispose;
 
@@ -673,7 +673,6 @@ function instance($$self, $$props, $$invalidate) {
 	}
 
 	function goTo (index) {
-		console.log("go@",index);
 		
 		if(!!controller&&(index===0||index>0)) {
 			controller.goTo(index);
