@@ -437,7 +437,7 @@
     const get_left_control_slot_changes = ({}) => ({});
     const get_left_control_slot_context = ({}) => ({});
 
-    // (120:2) {#each pips as pip, i}
+    // (122:2) {#each pips as pip, i}
     function create_each_block(ctx) {
     	var li, tap_action, dispose;
 
@@ -679,7 +679,9 @@
     	}
 
     	function goTo (index) {
+    		
     		if(!!controller) {
+    			console.log("should go",index);
     			controller.goTo(index);
     		}
     	}
