@@ -43,7 +43,9 @@
 	}
 
 	function goTo (index) {
-		controller.goTo(index)
+		if(!!controller) {
+			controller.goTo(index)
+		}
 	}
 </script>
 

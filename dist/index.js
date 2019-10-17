@@ -437,7 +437,7 @@
     const get_left_control_slot_changes = ({}) => ({});
     const get_left_control_slot_context = ({}) => ({});
 
-    // (56:2) {#each pips as pip, i}
+    // (118:2) {#each pips as pip, i}
     function create_each_block(ctx) {
     	var li, tap_action, dispose;
 
@@ -649,7 +649,7 @@
     function instance($$self, $$props, $$invalidate) {
     	
     	
-    	let { perPage = 3, loop = true, autoplay = 0 } = $$props;
+    	let { perPage = 3, loop = true, autoplay = 0, go = 0 } = $$props;
 
     	let siema;
     	let controller;
@@ -678,7 +678,7 @@
     		controller.next();
     	}
 
-    	function go (index) {
+    	function goTo (index) {
     		controller.goTo(index);
     	}
 
@@ -690,19 +690,21 @@
     	}
 
     	function tap_handler({ i }) {
-    		return go(i);
+    		return goTo(i);
     	}
 
     	$$self.$set = $$props => {
     		if ('perPage' in $$props) $$invalidate('perPage', perPage = $$props.perPage);
     		if ('loop' in $$props) $$invalidate('loop', loop = $$props.loop);
     		if ('autoplay' in $$props) $$invalidate('autoplay', autoplay = $$props.autoplay);
+    		if ('go' in $$props) $$invalidate('go', go = $$props.go);
     		if ('$$scope' in $$props) $$invalidate('$$scope', $$scope = $$props.$$scope);
     	};
 
     	let pips;
 
-    	$$self.$$.update = ($$dirty = { controller: 1 }) => {
+    	$$self.$$.update = ($$dirty = { go: 1, controller: 1 }) => {
+    		if ($$dirty.go) { goTo(go); }
     		if ($$dirty.controller) { $$invalidate('pips', pips = controller ? controller.innerElements : []); }
     	};
 
@@ -710,10 +712,11 @@
     		perPage,
     		loop,
     		autoplay,
+    		go,
     		siema,
     		left,
     		right,
-    		go,
+    		goTo,
     		pips,
     		div0_binding,
     		tap_handler,
@@ -726,7 +729,7 @@
     	constructor(options) {
     		super();
     		if (!document.getElementById("svelte-u2yijn-style")) add_css();
-    		init(this, options, instance, create_fragment, safe_not_equal, ["perPage", "loop", "autoplay"]);
+    		init(this, options, instance, create_fragment, safe_not_equal, ["perPage", "loop", "autoplay", "go"]);
     	}
     }
 
