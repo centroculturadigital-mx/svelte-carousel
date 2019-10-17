@@ -43,6 +43,8 @@
 	}
 
 	function goTo (index) {
+		console.log("should go",index);
+		
 		if(!!controller) {
 			controller.goTo(index)
 		}
