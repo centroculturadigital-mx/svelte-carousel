@@ -26,6 +26,29 @@
 			loop
 		})
 
+		 
+	
+			
+		document.addEventListener('keydown', event => {
+	
+			switch(event.keyCode) {
+				case 32:
+					right();
+					break;
+				case 37:
+				case 38:
+					left();
+					break;
+				case 39:
+				case 40:
+					right();
+					break;
+			}
+			
+		
+        });
+
+
 		autoplay && setInterval(right, autoplay)
 
 		return () => {
