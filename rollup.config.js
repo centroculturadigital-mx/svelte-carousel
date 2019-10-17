@@ -1,4 +1,5 @@
 import svelte from 'rollup-plugin-svelte'
+import svelte from 'rollup-plugin-svelte'
 import pkg from './package.json'
 import serve from 'rollup-plugin-serve'
 import resolve from 'rollup-plugin-node-resolve'

@@ -9,10 +9,13 @@
 	export let perPage = 3
 	export let loop = true
 	export let autoplay = 0
+	export let go = 0
 
 	let siema
 	let controller
 	let timer
+
+	$: goTo(go)
 
 	$: pips = controller ? controller.innerElements : []
 	
@@ -39,28 +42,12 @@
 		controller.next()
 	}
 
-	function go (index) {
+	function goTo (index) {
 		controller.goTo(index)
 	}
 </script>
 
 
-<div class="carousel">
-	<button class="left" use:tap on:tap={left}>
-		<slot name="left-control"></slot>
-	</button>
-	<div class="slides" bind:this={siema}>
-		<slot></slot>
-	</div>
-	<ul>
-		{#each pips as pip, i}
-		<li use:tap on:tap={() => go(i)}></li>
-		{/each}
-	</ul>
-	<button class="right" use:tap on:tap={right}>
-		<slot name="right-control"></slot>
-	</button>
-</div>
 
 <style>
 	.carousel {
@@ -115,3 +102,24 @@
 		background-color: rgba(255,255,255,0.85);
 	}
 </style>
+
+
+
+
+
+<div class="carousel">
+	<button class="left" use:tap on:tap={left}>
+		<slot name="left-control"></slot>
+	</button>
+	<div class="slides" bind:this={siema}>
+		<slot></slot>
+	</div>
+	<ul>
+		{#each pips as pip, i}
+		<li use:tap on:tap={() => goTo(i)}></li>
+		{/each}
+	</ul>
+	<button class="right" use:tap on:tap={right}>
+		<slot name="right-control"></slot>
+	</button>
+</div>
