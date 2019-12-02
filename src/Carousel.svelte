@@ -11,6 +11,7 @@
 	export let autoplay = 0
 	export let go = 0
 
+	let id
 	let siema
 	let controller
 	let timer
@@ -20,6 +21,8 @@
 	$: pips = controller ? controller.innerElements : []
 	
 	onMount(() => {
+
+		id = Math.ceil(Math.random() * 300000)
 		controller = new Siema({
 			selector: siema,
 			perPage,
@@ -142,7 +145,7 @@
 		<slot></slot>
 	</div>
 	<ul>
-		{#each pips as pip, i}
+		{#each pips as pip, i ("pip_"+id+"_"+i)}
 		<li use:tap on:tap={() => goTo(i)}></li>
 		{/each}
 	</ul>
