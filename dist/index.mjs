@@ -508,7 +508,7 @@ function get_each_context(ctx, list, i) {
 const get_left_control_slot_changes = ({}) => ({});
 const get_left_control_slot_context = ({}) => ({});
 
-// (157:2) {#each pips as pip, i ("pip_"+id+"_"+i)}
+// (159:2) {#each pips as pip, i ("pip_"+id+"_"+i)}
 function create_each_block(key_1, ctx) {
 	var li, li_class_value, tap_action, dispose;
 
@@ -523,7 +523,7 @@ function create_each_block(key_1, ctx) {
 
 		c() {
 			li = element("li");
-			attr(li, "class", li_class_value = "" + (ctx.go==ctx.i ? "active" : "") + " svelte-1vwhxtk");
+			attr(li, "class", li_class_value = "" + (ctx.current==ctx.i ? "active" : "") + " svelte-1vwhxtk");
 			dispose = listen(li, "tap", tap_handler);
 			this.first = li;
 		},
@@ -535,7 +535,7 @@ function create_each_block(key_1, ctx) {
 
 		p(changed, new_ctx) {
 			ctx = new_ctx;
-			if ((changed.go || changed.pips) && li_class_value !== (li_class_value = "" + (ctx.go==ctx.i ? "active" : "") + " svelte-1vwhxtk")) {
+			if ((changed.current || changed.pips) && li_class_value !== (li_class_value = "" + (ctx.current==ctx.i ? "active" : "") + " svelte-1vwhxtk")) {
 				attr(li, "class", li_class_value);
 			}
 		},
@@ -552,7 +552,7 @@ function create_each_block(key_1, ctx) {
 }
 
 function create_fragment(ctx) {
-	var div1, button0, tap_action, t0, div0, t1, ul, each_blocks = [], each_1_lookup = new Map(), t2, button1, tap_action_1, current, dispose;
+	var div1, button0, tap_action, t0, div0, t1, ul, each_blocks = [], each_1_lookup = new Map(), t2, button1, tap_action_1, current_1, dispose;
 
 	const left_control_slot_1 = ctx.$$slots["left-control"];
 	const left_control_slot = create_slot(left_control_slot_1, ctx, get_left_control_slot_context);
@@ -645,7 +645,7 @@ function create_fragment(ctx) {
 			}
 
 			tap_action_1 = tap.call(null, button1) || {};
-			current = true;
+			current_1 = true;
 		},
 
 		p(changed, ctx) {
@@ -671,18 +671,18 @@ function create_fragment(ctx) {
 		},
 
 		i(local) {
-			if (current) return;
+			if (current_1) return;
 			transition_in(left_control_slot, local);
 			transition_in(default_slot, local);
 			transition_in(right_control_slot, local);
-			current = true;
+			current_1 = true;
 		},
 
 		o(local) {
 			transition_out(left_control_slot, local);
 			transition_out(default_slot, local);
 			transition_out(right_control_slot, local);
-			current = false;
+			current_1 = false;
 		},
 
 		d(detaching) {
@@ -708,7 +708,7 @@ function create_fragment(ctx) {
 function instance($$self, $$props, $$invalidate) {
 	
 	
-	let { perPage = 3, loop = true, autoplay = 0, go = 0 } = $$props;
+	let { perPage = 3, loop = true, autoplay = 0, go = 0, current = 0 } = $$props;
 
 	let id;
 	let siema;
@@ -758,20 +758,21 @@ function instance($$self, $$props, $$invalidate) {
 	
 	function left () {
 		controller.prev();
-		go--; $$invalidate('go', go);
-		$$invalidate('go', go %= pips.length);
+		current--; $$invalidate('current', current);
+		$$invalidate('current', current %= pips.length);
 	}
 	
 	function right () {
 		controller.next();
-		go++; $$invalidate('go', go);
-		$$invalidate('go', go %= pips.length);
+		current++; $$invalidate('current', current);
+		$$invalidate('current', current %= pips.length);
 	}
 
 	function goTo (index) {
 		
 		if(!!controller&&(index===0||index>0)) {
 			controller.goTo(index);
+			$$invalidate('current', current = index);
 		}
 		
 	}
@@ -792,6 +793,7 @@ function instance($$self, $$props, $$invalidate) {
 		if ('loop' in $$props) $$invalidate('loop', loop = $$props.loop);
 		if ('autoplay' in $$props) $$invalidate('autoplay', autoplay = $$props.autoplay);
 		if ('go' in $$props) $$invalidate('go', go = $$props.go);
+		if ('current' in $$props) $$invalidate('current', current = $$props.current);
 		if ('$$scope' in $$props) $$invalidate('$$scope', $$scope = $$props.$$scope);
 	};
 
@@ -807,6 +809,7 @@ function instance($$self, $$props, $$invalidate) {
 		loop,
 		autoplay,
 		go,
+		current,
 		id,
 		siema,
 		left,
@@ -824,7 +827,7 @@ class Carousel extends SvelteComponent {
 	constructor(options) {
 		super();
 		if (!document_1.getElementById("svelte-1vwhxtk-style")) add_css();
-		init(this, options, instance, create_fragment, safe_not_equal, ["perPage", "loop", "autoplay", "go"]);
+		init(this, options, instance, create_fragment, safe_not_equal, ["perPage", "loop", "autoplay", "go", "current"]);
 	}
 }
 

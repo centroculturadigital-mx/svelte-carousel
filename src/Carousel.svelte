@@ -2,7 +2,7 @@
 
 	import Siema from 'siema'
 
-	import { tap } from '@sveltejs/gestures';
+	import { tap, swipe } from '@sveltejs/gestures';
 
 	import { onMount } from 'svelte'
 	
@@ -152,7 +152,7 @@
 	<button class="left" use:tap on:tap={left}>
 		<slot name="left-control"></slot>
 	</button>
-	<div class="slides" bind:this={siema}>
+	<div class="slides" bind:this={siema} on:swipe={()=>goTo(i)}>
 		<slot></slot>
 	</div>
 	<ul>
