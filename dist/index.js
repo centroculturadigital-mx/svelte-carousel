@@ -52,12 +52,6 @@
     function detach(node) {
         node.parentNode.removeChild(node);
     }
-    function destroy_each(iterations, detaching) {
-        for (let i = 0; i < iterations.length; i += 1) {
-            if (iterations[i])
-                iterations[i].d(detaching);
-        }
-    }
     function element(name) {
         return document.createElement(name);
     }
@@ -175,6 +169,86 @@
     }
 
     const globals = (typeof window !== 'undefined' ? window : global);
+
+    function destroy_block(block, lookup) {
+        block.d(1);
+        lookup.delete(block.key);
+    }
+    function update_keyed_each(old_blocks, changed, get_key, dynamic, ctx, list, lookup, node, destroy, create_each_block, next, get_context) {
+        let o = old_blocks.length;
+        let n = list.length;
+        let i = o;
+        const old_indexes = {};
+        while (i--)
+            old_indexes[old_blocks[i].key] = i;
+        const new_blocks = [];
+        const new_lookup = new Map();
+        const deltas = new Map();
+        i = n;
+        while (i--) {
+            const child_ctx = get_context(ctx, list, i);
+            const key = get_key(child_ctx);
+            let block = lookup.get(key);
+            if (!block) {
+                block = create_each_block(key, child_ctx);
+                block.c();
+            }
+            else if (dynamic) {
+                block.p(changed, child_ctx);
+            }
+            new_lookup.set(key, new_blocks[i] = block);
+            if (key in old_indexes)
+                deltas.set(key, Math.abs(i - old_indexes[key]));
+        }
+        const will_move = new Set();
+        const did_move = new Set();
+        function insert(block) {
+            transition_in(block, 1);
+            block.m(node, next);
+            lookup.set(block.key, block);
+            next = block.first;
+            n--;
+        }
+        while (o && n) {
+            const new_block = new_blocks[n - 1];
+            const old_block = old_blocks[o - 1];
+            const new_key = new_block.key;
+            const old_key = old_block.key;
+            if (new_block === old_block) {
+                // do nothing
+                next = new_block.first;
+                o--;
+                n--;
+            }
+            else if (!new_lookup.has(old_key)) {
+                // remove old block
+                destroy(old_block, lookup);
+                o--;
+            }
+            else if (!lookup.has(new_key) || will_move.has(new_key)) {
+                insert(new_block);
+            }
+            else if (did_move.has(old_key)) {
+                o--;
+            }
+            else if (deltas.get(new_key) > deltas.get(old_key)) {
+                did_move.add(new_key);
+                insert(new_block);
+            }
+            else {
+                will_move.add(old_key);
+                o--;
+            }
+        }
+        while (o--) {
+            const old_block = old_blocks[o];
+            if (!new_lookup.has(old_block.key))
+                destroy(old_block, lookup);
+        }
+        while (n)
+            insert(new_blocks[n - 1]);
+        return new_blocks;
+    }
     function mount_component(component, target, anchor) {
         const { fragment, on_mount, on_destroy, after_render } = component.$$;
         fragment.m(target, anchor);
@@ -440,8 +514,8 @@
     const get_left_control_slot_changes = ({}) => ({});
     const get_left_control_slot_context = ({}) => ({});
 
-    // (145:2) {#each pips as pip, i}
-    function create_each_block(ctx) {
+    // (149:2) {#each pips as pip, i ("pip_"+id)}
+    function create_each_block(key_1, ctx) {
     	var li, tap_action, dispose;
 
     	function tap_handler() {
@@ -449,10 +523,15 @@
     	}
 
     	return {
+    		key: key_1,
+
+    		first: null,
+
     		c() {
     			li = element("li");
     			attr(li, "class", "svelte-u2yijn");
     			dispose = listen(li, "tap", tap_handler);
+    			this.first = li;
     		},
 
     		m(target, anchor) {
@@ -476,7 +555,7 @@
     }
 
     function create_fragment(ctx) {
-    	var div1, button0, tap_action, t0, div0, t1, ul, t2, button1, tap_action_1, current, dispose;
+    	var div1, button0, tap_action, t0, div0, t1, ul, each_blocks = [], each_1_lookup = new Map(), t2, button1, tap_action_1, current, dispose;
 
     	const left_control_slot_1 = ctx.$$slots["left-control"];
     	const left_control_slot = create_slot(left_control_slot_1, ctx, get_left_control_slot_context);
@@ -486,10 +565,12 @@
 
     	var each_value = ctx.pips;
 
-    	var each_blocks = [];
+    	const get_key = ctx => "pip_"+ctx.id;
 
     	for (var i = 0; i < each_value.length; i += 1) {
-    		each_blocks[i] = create_each_block(get_each_context(ctx, each_value, i));
+    		let child_ctx = get_each_context(ctx, each_value, i);
+    		let key = get_key(child_ctx);
+    		each_1_lookup.set(key, each_blocks[i] = create_each_block(key, child_ctx));
     	}
 
     	const right_control_slot_1 = ctx.$$slots["right-control"];
@@ -508,9 +589,7 @@
     			t1 = space();
     			ul = element("ul");
 
-    			for (var i = 0; i < each_blocks.length; i += 1) {
-    				each_blocks[i].c();
-    			}
+    			for (i = 0; i < each_blocks.length; i += 1) each_blocks[i].c();
 
     			t2 = space();
     			button1 = element("button");
@@ -559,9 +638,7 @@
     			append(div1, t1);
     			append(div1, ul);
 
-    			for (var i = 0; i < each_blocks.length; i += 1) {
-    				each_blocks[i].m(ul, null);
-    			}
+    			for (i = 0; i < each_blocks.length; i += 1) each_blocks[i].m(ul, null);
 
     			append(div1, t2);
     			append(div1, button1);
@@ -588,26 +665,8 @@
     				ctx.div0_binding(div0, null);
     			}
 
-    			if (changed.pips) {
-    				each_value = ctx.pips;
-
-    				for (var i = 0; i < each_value.length; i += 1) {
-    					const child_ctx = get_each_context(ctx, each_value, i);
-
-    					if (each_blocks[i]) {
-    						each_blocks[i].p(changed, child_ctx);
-    					} else {
-    						each_blocks[i] = create_each_block(child_ctx);
-    						each_blocks[i].c();
-    						each_blocks[i].m(ul, null);
-    					}
-    				}
-
-    				for (; i < each_blocks.length; i += 1) {
-    					each_blocks[i].d(1);
-    				}
-    				each_blocks.length = each_value.length;
-    			}
+    			const each_value = ctx.pips;
+    			each_blocks = update_keyed_each(each_blocks, changed, get_key, 1, ctx, each_value, each_1_lookup, ul, destroy_block, create_each_block, null, get_each_context);
 
     			if (right_control_slot && right_control_slot.p && changed.$$scope) {
     				right_control_slot.p(get_slot_changes(right_control_slot_1, ctx, changed, get_right_control_slot_changes), get_slot_context(right_control_slot_1, ctx, get_right_control_slot_context));
@@ -640,7 +699,7 @@
     			if (default_slot) default_slot.d(detaching);
     			ctx.div0_binding(null, div0);
 
-    			destroy_each(each_blocks, detaching);
+    			for (i = 0; i < each_blocks.length; i += 1) each_blocks[i].d();
 
     			if (right_control_slot) right_control_slot.d(detaching);
     			if (tap_action_1 && typeof tap_action_1.destroy === 'function') tap_action_1.destroy();
@@ -654,11 +713,15 @@
     	
     	let { perPage = 3, loop = true, autoplay = 0, go = 0 } = $$props;
 
+    	let id;
     	let siema;
     	let controller;
     	let timer;
     	
     	onMount(() => {
+
+    		$$invalidate('id', id = Math.ceil(Math.random() * 300000));
+    		
     		$$invalidate('controller', controller = new Siema({
     			selector: siema,
     			perPage,
@@ -743,6 +806,7 @@
     		loop,
     		autoplay,
     		go,
+    		id,
     		siema,
     		left,
     		right,

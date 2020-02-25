@@ -23,6 +23,7 @@
 	onMount(() => {
 
 		id = Math.ceil(Math.random() * 300000)
+		
 		controller = new Siema({
 			selector: siema,
 			perPage,
@@ -146,7 +147,7 @@
 	</div>
 	<ul>
 		{#each pips as pip, i ("pip_"+id+"_"+i)}
-		<li use:tap on:tap={() => goTo(i)}></li>
+			<li use:tap on:tap={() => goTo(i)}></li>
 		{/each}
 	</ul>
 	<button class="right" use:tap on:tap={right}>
