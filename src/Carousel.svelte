@@ -24,7 +24,7 @@
 	onMount(() => {
 
 		id = Math.ceil(Math.random() * 300000)
-		const onChange  = () => { console.log(controller.currentSlide); /*current = i*/ }
+		const onChange  = () => { current = controller.currentSlide }
 		controller = new Siema({
 			selector: siema,
 			perPage,
