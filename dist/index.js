@@ -724,7 +724,7 @@
     	onMount(() => {
 
     		$$invalidate('id', id = Math.ceil(Math.random() * 300000));
-    		const onChange  = () => { console.log(controller.currentSlide); /*current = i*/ };
+    		const onChange  = () => { $$invalidate('current', current = controller.currentSlide); };
     		$$invalidate('controller', controller = new Siema({
     			selector: siema,
     			perPage,

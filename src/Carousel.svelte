@@ -134,6 +134,7 @@
 		margin: .5rem;
 		border-radius: 100%;
 		background-color: rgba(255,255,255,0.5);
+		transition: background-color 0.4s ease-in-out;
 		height: 8px;
 		width: 8px;
 	}
