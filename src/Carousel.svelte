@@ -63,10 +63,12 @@
 	
 	function left () {
 		controller.prev()
+		go--;
 	}
 	
 	function right () {
 		controller.next()
+		go++;
 	}
 
 	function goTo (index) {
@@ -147,7 +149,7 @@
 	</div>
 	<ul>
 		{#each pips as pip, i ("pip_"+id+"_"+i)}
-			<li use:tap on:tap={() => goTo(i)}></li>
+			<li class={ go==i ? "active" : "" } use:tap on:tap={() => goTo(i)}></li>
 		{/each}
 	</ul>
 	<button class="right" use:tap on:tap={right}>

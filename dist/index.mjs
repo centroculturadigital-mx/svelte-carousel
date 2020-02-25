@@ -508,7 +508,7 @@ function get_each_context(ctx, list, i) {
 const get_left_control_slot_changes = ({}) => ({});
 const get_left_control_slot_context = ({}) => ({});
 
-// (149:2) {#each pips as pip, i ("pip_"+id)}
+// (149:2) {#each pips as pip, i ("pip_"+id+"_"+i)}
 function create_each_block(key_1, ctx) {
 	var li, tap_action, dispose;
 
@@ -559,12 +559,12 @@ function create_fragment(ctx) {
 
 	var each_value = ctx.pips;
 
-	const get_key = ctx => "pip_"+ctx.id;
+	const get_key = ctx => "pip_"+ctx.id+"_"+ctx.i;
 
-	for (var i = 0; i < each_value.length; i += 1) {
-		let child_ctx = get_each_context(ctx, each_value, i);
+	for (var i_1 = 0; i_1 < each_value.length; i_1 += 1) {
+		let child_ctx = get_each_context(ctx, each_value, i_1);
 		let key = get_key(child_ctx);
-		each_1_lookup.set(key, each_blocks[i] = create_each_block(key, child_ctx));
+		each_1_lookup.set(key, each_blocks[i_1] = create_each_block(key, child_ctx));
 	}
 
 	const right_control_slot_1 = ctx.$$slots["right-control"];
@@ -583,7 +583,7 @@ function create_fragment(ctx) {
 			t1 = space();
 			ul = element("ul");
 
-			for (i = 0; i < each_blocks.length; i += 1) each_blocks[i].c();
+			for (i_1 = 0; i_1 < each_blocks.length; i_1 += 1) each_blocks[i_1].c();
 
 			t2 = space();
 			button1 = element("button");
@@ -632,7 +632,7 @@ function create_fragment(ctx) {
 			append(div1, t1);
 			append(div1, ul);
 
-			for (i = 0; i < each_blocks.length; i += 1) each_blocks[i].m(ul, null);
+			for (i_1 = 0; i_1 < each_blocks.length; i_1 += 1) each_blocks[i_1].m(ul, null);
 
 			append(div1, t2);
 			append(div1, button1);
@@ -693,7 +693,7 @@ function create_fragment(ctx) {
 			if (default_slot) default_slot.d(detaching);
 			ctx.div0_binding(null, div0);
 
-			for (i = 0; i < each_blocks.length; i += 1) each_blocks[i].d();
+			for (i_1 = 0; i_1 < each_blocks.length; i_1 += 1) each_blocks[i_1].d();
 
 			if (right_control_slot) right_control_slot.d(detaching);
 			if (tap_action_1 && typeof tap_action_1.destroy === 'function') tap_action_1.destroy();
