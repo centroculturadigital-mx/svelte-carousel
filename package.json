@@ -3,7 +3,7 @@
   "svelte": "src/Carousel.svelte",
   "module": "dist/index.mjs",
   "main": "dist/index.js",
-  "version": "0.5.177",
+  "version": "0.5.178",
   "scripts": {
     "build": "rollup -c",
     "dev": "NODE_ENV=development rollup -cw",
