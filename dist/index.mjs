@@ -490,8 +490,8 @@ const { document: document_1 } = globals;
 
 function add_css() {
 	var style = element("style");
-	style.id = 'svelte-u2yijn-style';
-	style.textContent = ".carousel.svelte-u2yijn{position:relative;width:100%;justify-content:center;align-items:center}button.svelte-u2yijn{position:absolute;width:40px;height:40px;top:50%;z-index:50;margin-top:-20px;border:none;background-color:transparent}button.svelte-u2yijn:focus{outline:none}.left.svelte-u2yijn{left:2vw}.right.svelte-u2yijn{right:2vw}ul.svelte-u2yijn{list-style-type:none;position:absolute;display:flex;justify-content:center;width:100%;margin:1rem 0;padding:0}ul.svelte-u2yijn li.svelte-u2yijn{margin:.5rem;border-radius:100%;background-color:rgba(255,255,255,0.5);height:8px;width:8px}ul.svelte-u2yijn li.svelte-u2yijn:hover{background-color:rgba(255,255,255,0.85)}";
+	style.id = 'svelte-1vwhxtk-style';
+	style.textContent = ".carousel.svelte-1vwhxtk{position:relative;width:100%;justify-content:center;align-items:center}button.svelte-1vwhxtk{position:absolute;width:40px;height:40px;top:50%;z-index:50;margin-top:-20px;border:none;background-color:transparent}button.svelte-1vwhxtk:focus{outline:none}.left.svelte-1vwhxtk{left:2vw}.right.svelte-1vwhxtk{right:2vw}ul.svelte-1vwhxtk{list-style-type:none;position:absolute;display:flex;justify-content:center;width:100%;margin:1rem 0;padding:0}ul.svelte-1vwhxtk li.svelte-1vwhxtk{margin:.5rem;border-radius:100%;background-color:rgba(255,255,255,0.5);height:8px;width:8px}.active.svelte-1vwhxtk{background-color:rgba(0,0,0,0.85)}ul.svelte-1vwhxtk li.svelte-1vwhxtk:hover{background-color:rgba(255,255,255,0.85)}";
 	append(document_1.head, style);
 }
 
@@ -508,7 +508,7 @@ function get_each_context(ctx, list, i) {
 const get_left_control_slot_changes = ({}) => ({});
 const get_left_control_slot_context = ({}) => ({});
 
-// (151:2) {#each pips as pip, i ("pip_"+id+"_"+i)}
+// (157:2) {#each pips as pip, i ("pip_"+id+"_"+i)}
 function create_each_block(key_1, ctx) {
 	var li, li_class_value, tap_action, dispose;
 
@@ -523,7 +523,7 @@ function create_each_block(key_1, ctx) {
 
 		c() {
 			li = element("li");
-			attr(li, "class", li_class_value = "" + (ctx.go==ctx.i ? "active" : "") + " svelte-u2yijn");
+			attr(li, "class", li_class_value = "" + (ctx.go==ctx.i ? "active" : "") + " svelte-1vwhxtk");
 			dispose = listen(li, "tap", tap_handler);
 			this.first = li;
 		},
@@ -535,7 +535,7 @@ function create_each_block(key_1, ctx) {
 
 		p(changed, new_ctx) {
 			ctx = new_ctx;
-			if ((changed.go || changed.pips) && li_class_value !== (li_class_value = "" + (ctx.go==ctx.i ? "active" : "") + " svelte-u2yijn")) {
+			if ((changed.go || changed.pips) && li_class_value !== (li_class_value = "" + (ctx.go==ctx.i ? "active" : "") + " svelte-1vwhxtk")) {
 				attr(li, "class", li_class_value);
 			}
 		},
@@ -593,13 +593,13 @@ function create_fragment(ctx) {
 
 			if (right_control_slot) right_control_slot.c();
 
-			attr(button0, "class", "left svelte-u2yijn");
+			attr(button0, "class", "left svelte-1vwhxtk");
 
 			attr(div0, "class", "slides");
-			attr(ul, "class", "svelte-u2yijn");
+			attr(ul, "class", "svelte-1vwhxtk");
 
-			attr(button1, "class", "right svelte-u2yijn");
-			attr(div1, "class", "carousel svelte-u2yijn");
+			attr(button1, "class", "right svelte-1vwhxtk");
+			attr(div1, "class", "carousel svelte-1vwhxtk");
 
 			dispose = [
 				listen(button0, "tap", ctx.left),
@@ -759,11 +759,13 @@ function instance($$self, $$props, $$invalidate) {
 	function left () {
 		controller.prev();
 		go--; $$invalidate('go', go);
+		$$invalidate('go', go %= pips.length);
 	}
 	
 	function right () {
 		controller.next();
 		go++; $$invalidate('go', go);
+		$$invalidate('go', go %= pips.length);
 	}
 
 	function goTo (index) {
@@ -821,7 +823,7 @@ function instance($$self, $$props, $$invalidate) {
 class Carousel extends SvelteComponent {
 	constructor(options) {
 		super();
-		if (!document_1.getElementById("svelte-u2yijn-style")) add_css();
+		if (!document_1.getElementById("svelte-1vwhxtk-style")) add_css();
 		init(this, options, instance, create_fragment, safe_not_equal, ["perPage", "loop", "autoplay", "go"]);
 	}
 }

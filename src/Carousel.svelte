@@ -10,6 +10,7 @@
 	export let loop = true
 	export let autoplay = 0
 	export let go = 0
+	export let current = 0
 
 	let id
 	let siema
@@ -63,20 +64,21 @@
 	
 	function left () {
 		controller.prev()
-		go--;
-		go %= pips.length
+		current--;
+		current %= pips.length
 	}
 	
 	function right () {
 		controller.next()
-		go++;
-		go %= pips.length
+		current++;
+		current %= pips.length
 	}
 
 	function goTo (index) {
 		
 		if(!!controller&&(index===0||index>0)) {
 			controller.goTo(index)
+			current = index
 		}
 		
 	}
@@ -155,7 +157,7 @@
 	</div>
 	<ul>
 		{#each pips as pip, i ("pip_"+id+"_"+i)}
-			<li class={ go==i ? "active" : "" } use:tap on:tap={() => goTo(i)}></li>
+			<li class={ current==i ? "active" : "" } use:tap on:tap={() => goTo(i)}></li>
 		{/each}
 	</ul>
 	<button class="right" use:tap on:tap={right}>
