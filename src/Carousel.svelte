@@ -24,11 +24,12 @@
 	onMount(() => {
 
 		id = Math.ceil(Math.random() * 300000)
-		
+		const onChange  = i => { current = i }
 		controller = new Siema({
 			selector: siema,
 			perPage,
-			loop
+			loop,
+			onChange
 		})
 
 		 
