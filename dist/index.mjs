@@ -508,7 +508,7 @@ function get_each_context(ctx, list, i) {
 const get_left_control_slot_changes = ({}) => ({});
 const get_left_control_slot_context = ({}) => ({});
 
-// (159:2) {#each pips as pip, i ("pip_"+id+"_"+i)}
+// (158:2) {#each pips as pip, i ("pip_"+id+"_"+i)}
 function create_each_block(key_1, ctx) {
 	var li, li_class_value, tap_action, dispose;
 
@@ -603,7 +603,6 @@ function create_fragment(ctx) {
 
 			dispose = [
 				listen(button0, "tap", ctx.left),
-				listen(div0, "swipe", ctx.swipe_handler),
 				listen(button1, "tap", ctx.right)
 			];
 		},
@@ -758,22 +757,21 @@ function instance($$self, $$props, $$invalidate) {
 	});
 	
 	function left () {
-		controller.prev();
 		current--; $$invalidate('current', current);
 		$$invalidate('current', current %= pips.length);
+		controller.prev(1,goTo(current));
 	}
 	
 	function right () {
-		controller.next();
 		current++; $$invalidate('current', current);
 		$$invalidate('current', current %= pips.length);
+		controller.next(1,goTo(current));
 	}
 
 	function goTo (index) {
 		
 		if(!!controller&&(index===0||index>0)) {
-			controller.goTo(index);
-			$$invalidate('current', current = index);
+			controller.goTo(index,()=>{ $$invalidate('current', current = index); });
 		}
 		
 	}
@@ -783,10 +781,6 @@ function instance($$self, $$props, $$invalidate) {
 	function div0_binding($$node, check) {
 		siema = $$node;
 		$$invalidate('siema', siema);
-	}
-
-	function swipe_handler() {
-		return goTo(i);
 	}
 
 	function tap_handler({ i }) {
@@ -822,7 +816,6 @@ function instance($$self, $$props, $$invalidate) {
 		goTo,
 		pips,
 		div0_binding,
-		swipe_handler,
 		tap_handler,
 		$$slots,
 		$$scope
