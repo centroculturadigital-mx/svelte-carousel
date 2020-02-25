@@ -77,7 +77,7 @@
 	function goTo (index) {
 		
 		if(!!controller&&(index===0||index>0)) {
-			controller.goTo(index,()=>{ current = index }))
+			controller.goTo(index,()=>{ current = index })
 		}
 		
 	}
