@@ -2,7 +2,7 @@
 
 	import Siema from 'siema'
 
-	import { tap, swipe } from '@sveltejs/gestures';
+	import { tap } from '@sveltejs/gestures';
 
 	import { onMount } from 'svelte'
 	
@@ -63,22 +63,21 @@
 	})
 	
 	function left () {
-		controller.prev()
 		current--;
 		current %= pips.length
+		controller.prev(1,goTo(current))
 	}
 	
 	function right () {
-		controller.next()
 		current++;
 		current %= pips.length
+		controller.next(1,goTo(current))
 	}
 
 	function goTo (index) {
 		
 		if(!!controller&&(index===0||index>0)) {
-			controller.goTo(index)
-			current = index
+			controller.goTo(index,()=>{ current = index }))
 		}
 		
 	}
@@ -152,7 +151,7 @@
 	<button class="left" use:tap on:tap={left}>
 		<slot name="left-control"></slot>
 	</button>
-	<div class="slides" bind:this={siema} on:swipe={()=>goTo(i)}>
+	<div class="slides" bind:this={siema}>
 		<slot></slot>
 	</div>
 	<ul>

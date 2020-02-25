@@ -603,6 +603,7 @@ function create_fragment(ctx) {
 
 			dispose = [
 				listen(button0, "tap", ctx.left),
+				listen(div0, "swipe", ctx.swipe_handler),
 				listen(button1, "tap", ctx.right)
 			];
 		},
@@ -784,6 +785,10 @@ function instance($$self, $$props, $$invalidate) {
 		$$invalidate('siema', siema);
 	}
 
+	function swipe_handler() {
+		return goTo(i);
+	}
+
 	function tap_handler({ i }) {
 		return goTo(i);
 	}
@@ -817,6 +822,7 @@ function instance($$self, $$props, $$invalidate) {
 		goTo,
 		pips,
 		div0_binding,
+		swipe_handler,
 		tap_handler,
 		$$slots,
 		$$scope

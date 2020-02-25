@@ -609,6 +609,7 @@
 
     			dispose = [
     				listen(button0, "tap", ctx.left),
+    				listen(div0, "swipe", ctx.swipe_handler),
     				listen(button1, "tap", ctx.right)
     			];
     		},
@@ -790,6 +791,10 @@
     		$$invalidate('siema', siema);
     	}
 
+    	function swipe_handler() {
+    		return goTo(i);
+    	}
+
     	function tap_handler({ i }) {
     		return goTo(i);
     	}
@@ -823,6 +828,7 @@
     		goTo,
     		pips,
     		div0_binding,
+    		swipe_handler,
     		tap_handler,
     		$$slots,
     		$$scope
