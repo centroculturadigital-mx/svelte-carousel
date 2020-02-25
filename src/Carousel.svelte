@@ -64,11 +64,13 @@
 	function left () {
 		controller.prev()
 		go--;
+		go %= pips.length
 	}
 	
 	function right () {
 		controller.next()
 		go++;
+		go %= pips.length
 	}
 
 	function goTo (index) {
@@ -129,6 +131,10 @@
 		background-color: rgba(255,255,255,0.5);
 		height: 8px;
 		width: 8px;
+	}
+
+	.active {
+		background-color: rgba(0,0,0,0.85);
 	}
 
 	ul li:hover {

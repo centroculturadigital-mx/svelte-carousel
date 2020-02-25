@@ -508,9 +508,9 @@ function get_each_context(ctx, list, i) {
 const get_left_control_slot_changes = ({}) => ({});
 const get_left_control_slot_context = ({}) => ({});
 
-// (149:2) {#each pips as pip, i ("pip_"+id+"_"+i)}
+// (151:2) {#each pips as pip, i ("pip_"+id+"_"+i)}
 function create_each_block(key_1, ctx) {
-	var li, tap_action, dispose;
+	var li, li_class_value, tap_action, dispose;
 
 	function tap_handler() {
 		return ctx.tap_handler(ctx);
@@ -523,7 +523,7 @@ function create_each_block(key_1, ctx) {
 
 		c() {
 			li = element("li");
-			attr(li, "class", "svelte-u2yijn");
+			attr(li, "class", li_class_value = "" + (ctx.go==ctx.i ? "active" : "") + " svelte-u2yijn");
 			dispose = listen(li, "tap", tap_handler);
 			this.first = li;
 		},
@@ -535,6 +535,9 @@ function create_each_block(key_1, ctx) {
 
 		p(changed, new_ctx) {
 			ctx = new_ctx;
+			if ((changed.go || changed.pips) && li_class_value !== (li_class_value = "" + (ctx.go==ctx.i ? "active" : "") + " svelte-u2yijn")) {
+				attr(li, "class", li_class_value);
+			}
 		},
 
 		d(detaching) {
@@ -755,10 +758,12 @@ function instance($$self, $$props, $$invalidate) {
 	
 	function left () {
 		controller.prev();
+		go--; $$invalidate('go', go);
 	}
 	
 	function right () {
 		controller.next();
+		go++; $$invalidate('go', go);
 	}
 
 	function goTo (index) {
