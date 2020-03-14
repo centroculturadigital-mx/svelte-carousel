@@ -490,8 +490,8 @@ const { document: document_1 } = globals;
 
 function add_css() {
 	var style = element("style");
-	style.id = 'svelte-1vwhxtk-style';
-	style.textContent = ".carousel.svelte-1vwhxtk{position:relative;width:100%;justify-content:center;align-items:center}button.svelte-1vwhxtk{position:absolute;width:40px;height:40px;top:50%;z-index:50;margin-top:-20px;border:none;background-color:transparent}button.svelte-1vwhxtk:focus{outline:none}.left.svelte-1vwhxtk{left:2vw}.right.svelte-1vwhxtk{right:2vw}ul.svelte-1vwhxtk{list-style-type:none;position:absolute;display:flex;justify-content:center;width:100%;margin:1rem 0;padding:0}ul.svelte-1vwhxtk li.svelte-1vwhxtk{margin:.5rem;border-radius:100%;background-color:rgba(255,255,255,0.5);height:8px;width:8px}.active.svelte-1vwhxtk{background-color:rgba(0,0,0,0.85)}ul.svelte-1vwhxtk li.svelte-1vwhxtk:hover{background-color:rgba(255,255,255,0.85)}";
+	style.id = 'svelte-16zwfyy-style';
+	style.textContent = ".carousel.svelte-16zwfyy{position:relative;width:100%;justify-content:center;align-items:center}button.svelte-16zwfyy{position:absolute;width:40px;height:40px;top:50%;z-index:50;margin-top:-20px;border:none;background-color:transparent}button.svelte-16zwfyy:focus{outline:none}.left.svelte-16zwfyy{left:2vw}.right.svelte-16zwfyy{right:2vw}ul.svelte-16zwfyy{list-style-type:none;position:absolute;display:flex;justify-content:center;width:100%;margin:1rem 0;padding:0}ul.svelte-16zwfyy li.svelte-16zwfyy{margin:.5rem;border-radius:100%;background-color:rgba(255,255,255,0.5);transition:background-color 0.4s ease-in-out;height:8px;width:8px}.active.svelte-16zwfyy{background-color:rgba(0,0,0,0.85)}ul.svelte-16zwfyy li.svelte-16zwfyy:hover{background-color:rgba(255,255,255,0.85)}";
 	append(document_1.head, style);
 }
 
@@ -508,7 +508,7 @@ function get_each_context(ctx, list, i) {
 const get_left_control_slot_changes = ({}) => ({});
 const get_left_control_slot_context = ({}) => ({});
 
-// (162:2) {#each pips as pip, i ("pip_"+id+"_"+i)}
+// (163:2) {#each pips as pip, i ("pip_"+id+"_"+i)}
 function create_each_block(key_1, ctx) {
 	var li, li_class_value, tap_action, dispose;
 
@@ -523,7 +523,7 @@ function create_each_block(key_1, ctx) {
 
 		c() {
 			li = element("li");
-			attr(li, "class", li_class_value = "" + (ctx.current==ctx.i ? "active" : "") + " svelte-1vwhxtk");
+			attr(li, "class", li_class_value = "" + (ctx.current==ctx.i ? "active" : "") + " svelte-16zwfyy");
 			dispose = listen(li, "tap", tap_handler);
 			this.first = li;
 		},
@@ -535,7 +535,7 @@ function create_each_block(key_1, ctx) {
 
 		p(changed, new_ctx) {
 			ctx = new_ctx;
-			if ((changed.current || changed.pips) && li_class_value !== (li_class_value = "" + (ctx.current==ctx.i ? "active" : "") + " svelte-1vwhxtk")) {
+			if ((changed.current || changed.pips) && li_class_value !== (li_class_value = "" + (ctx.current==ctx.i ? "active" : "") + " svelte-16zwfyy")) {
 				attr(li, "class", li_class_value);
 			}
 		},
@@ -593,13 +593,13 @@ function create_fragment(ctx) {
 
 			if (right_control_slot) right_control_slot.c();
 
-			attr(button0, "class", "left svelte-1vwhxtk");
+			attr(button0, "class", "left svelte-16zwfyy");
 
 			attr(div0, "class", "slides");
-			attr(ul, "class", "svelte-1vwhxtk");
+			attr(ul, "class", "svelte-16zwfyy");
 
-			attr(button1, "class", "right svelte-1vwhxtk");
-			attr(div1, "class", "carousel svelte-1vwhxtk");
+			attr(button1, "class", "right svelte-16zwfyy");
+			attr(div1, "class", "carousel svelte-16zwfyy");
 
 			dispose = [
 				listen(button0, "tap", ctx.left),
@@ -829,7 +829,7 @@ function instance($$self, $$props, $$invalidate) {
 class Carousel extends SvelteComponent {
 	constructor(options) {
 		super();
-		if (!document_1.getElementById("svelte-1vwhxtk-style")) add_css();
+		if (!document_1.getElementById("svelte-16zwfyy-style")) add_css();
 		init(this, options, instance, create_fragment, safe_not_equal, ["perPage", "loop", "autoplay", "go", "current"]);
 	}
 }
