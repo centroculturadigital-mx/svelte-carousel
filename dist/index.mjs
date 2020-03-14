@@ -508,7 +508,7 @@ function get_each_context(ctx, list, i) {
 const get_left_control_slot_changes = ({}) => ({});
 const get_left_control_slot_context = ({}) => ({});
 
-// (163:2) {#each pips as pip, i ("pip_"+id+"_"+i)}
+// (161:2) {#each pips as pip, i ("pip_"+id+"_"+i)}
 function create_each_block(key_1, ctx) {
 	var li, li_class_value, tap_action, dispose;
 
@@ -770,10 +770,8 @@ function instance($$self, $$props, $$invalidate) {
 	}
 
 	function goTo (index) {
+		console.log("go to",index);
 		
-		console.log("goTo?");
-		
-
 		if(!!controller&&(index===0||index>0)) {
 			controller.goTo(index,()=>{ $$invalidate('current', current = index); });
 		}
