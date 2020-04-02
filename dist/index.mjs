@@ -490,8 +490,8 @@ const { document: document_1 } = globals;
 
 function add_css() {
 	var style = element("style");
-	style.id = 'svelte-16zwfyy-style';
-	style.textContent = ".carousel.svelte-16zwfyy{position:relative;width:100%;justify-content:center;align-items:center}button.svelte-16zwfyy{position:absolute;width:40px;height:40px;top:50%;z-index:50;margin-top:-20px;border:none;background-color:transparent}button.svelte-16zwfyy:focus{outline:none}.left.svelte-16zwfyy{left:2vw}.right.svelte-16zwfyy{right:2vw}ul.svelte-16zwfyy{list-style-type:none;position:absolute;display:flex;justify-content:center;width:100%;margin:1rem 0;padding:0}ul.svelte-16zwfyy li.svelte-16zwfyy{margin:.5rem;border-radius:100%;background-color:rgba(255,255,255,0.5);transition:background-color 0.4s ease-in-out;height:8px;width:8px}.active.svelte-16zwfyy{background-color:rgba(0,0,0,0.85)}ul.svelte-16zwfyy li.svelte-16zwfyy:hover{background-color:rgba(255,255,255,0.85)}";
+	style.id = 'svelte-jrqjob-style';
+	style.textContent = ".carousel.svelte-jrqjob{position:relative;width:100%;justify-content:center;align-items:center}button.svelte-jrqjob{position:absolute;width:40px;height:40px;top:50%;z-index:50;margin-top:-20px;border:none;background-color:transparent}button.svelte-jrqjob:focus{outline:none}.left.svelte-jrqjob{left:2vw}.right.svelte-jrqjob{right:2vw}ul.svelte-jrqjob{list-style-type:none;position:absolute;display:flex;justify-content:center;width:100%;margin:1rem 0;padding:0}ul.svelte-jrqjob li.svelte-jrqjob{margin:0.5rem;border-radius:100%;background-color:rgba(255, 255, 255, 0.5);transition:background-color 0.4s ease-in-out;height:8px;width:8px}.active.svelte-jrqjob{background-color:rgba(0, 0, 0, 0.85)}ul.svelte-jrqjob li.svelte-jrqjob:hover{background-color:rgba(255, 255, 255, 0.85)}";
 	append(document_1.head, style);
 }
 
@@ -508,7 +508,7 @@ function get_each_context(ctx, list, i) {
 const get_left_control_slot_changes = ({}) => ({});
 const get_left_control_slot_context = ({}) => ({});
 
-// (168:2) {#each pips as pip, i ("pip_"+id+"_"+i)}
+// (153:4) {#each pips as pip, i ('pip_' + id + '_' + i)}
 function create_each_block(key_1, ctx) {
 	var li, li_class_value, tap_action, dispose;
 
@@ -523,7 +523,7 @@ function create_each_block(key_1, ctx) {
 
 		c() {
 			li = element("li");
-			attr(li, "class", li_class_value = "" + (ctx.current==ctx.i ? "active" : "") + " svelte-16zwfyy");
+			attr(li, "class", li_class_value = "" + (ctx.current == ctx.i ? 'active' : '') + " svelte-jrqjob");
 			dispose = listen(li, "tap", tap_handler);
 			this.first = li;
 		},
@@ -535,7 +535,7 @@ function create_each_block(key_1, ctx) {
 
 		p(changed, new_ctx) {
 			ctx = new_ctx;
-			if ((changed.current || changed.pips) && li_class_value !== (li_class_value = "" + (ctx.current==ctx.i ? "active" : "") + " svelte-16zwfyy")) {
+			if ((changed.current || changed.pips) && li_class_value !== (li_class_value = "" + (ctx.current == ctx.i ? 'active' : '') + " svelte-jrqjob")) {
 				attr(li, "class", li_class_value);
 			}
 		},
@@ -562,7 +562,7 @@ function create_fragment(ctx) {
 
 	var each_value = ctx.pips;
 
-	const get_key = ctx => "pip_"+ctx.id+"_"+ctx.i;
+	const get_key = ctx => 'pip_' + ctx.id + '_' + ctx.i;
 
 	for (var i_1 = 0; i_1 < each_value.length; i_1 += 1) {
 		let child_ctx = get_each_context(ctx, each_value, i_1);
@@ -593,13 +593,13 @@ function create_fragment(ctx) {
 
 			if (right_control_slot) right_control_slot.c();
 
-			attr(button0, "class", "left svelte-16zwfyy");
+			attr(button0, "class", "left svelte-jrqjob");
 
 			attr(div0, "class", "slides");
-			attr(ul, "class", "svelte-16zwfyy");
+			attr(ul, "class", "svelte-jrqjob");
 
-			attr(button1, "class", "right svelte-16zwfyy");
-			attr(div1, "class", "carousel svelte-16zwfyy");
+			attr(button1, "class", "right svelte-jrqjob");
+			attr(div1, "class", "carousel svelte-jrqjob");
 
 			dispose = [
 				listen(button0, "tap", ctx.left),
@@ -707,83 +707,75 @@ function create_fragment(ctx) {
 
 function instance($$self, $$props, $$invalidate) {
 	
-	
-	let { perPage = 3, loop = true, autoplay = 0, go = 0, current = 0 } = $$props;
 
-	let id;
-	let siema;
-	let controller;
-	let timer;
-	
-	onMount(() => {
+  let { perPage = 3, loop = true, autoplay = 0, go = 0, current = 0 } = $$props;
 
-		$$invalidate('id', id = Math.ceil(Math.random() * 300000));
-		const onChange  = () => {
-			console.log("onChange",controller.currentSlide);
-			
-			$$invalidate('current', current = controller.currentSlide);
-		};
-		$$invalidate('controller', controller = new Siema({
-			selector: siema,
-			perPage,
-			loop,
-			onChange
-		}));
+  let id;
+  let siema;
+  let controller;
+  let timer;
 
-		 
-	
-			
-		document.addEventListener('keydown', event => {
-	
-			switch(event.keyCode) {
-				case 32:
-					right();
-					break;
-				case 37:
-				case 38:
-					left();
-					break;
-				case 39:
-				case 40:
-					right();
-					break;
-			}
-			
-		
+  onMount(() => {
+    $$invalidate('id', id = Math.ceil(Math.random() * 300000));
+    const onChange = () => {
+    //   console.log("onChange", controller.currentSlide);
+
+      $$invalidate('current', current = controller.currentSlide);
+    };
+    $$invalidate('controller', controller = new Siema({
+      selector: siema,
+      perPage,
+      loop,
+      onChange
+    }));
+
+    document.addEventListener("keydown", event => {
+      switch (event.keyCode) {
+        case 32:
+          right();
+          break;
+        case 37:
+        case 38:
+          left();
+          break;
+        case 39:
+        case 40:
+          right();
+          break;
+      }
+    });
+
+    autoplay && setInterval(right, autoplay);
+
+    return () => {
+      autoplay && clearTimeout(timer);
+      controller.destroy();
+    };
+  });
+
+  function left() {
+    current--; $$invalidate('current', current);
+    $$invalidate('current', current %= pips.length);
+    controller.prev(1, goTo(current + 1));
+  }
+
+  function right() {
+    current++; $$invalidate('current', current);
+    $$invalidate('current', current %= pips.length);
+    controller.next(1, goTo(current - 1));
+  }
+
+  function goTo(index) {
+
+    // console.log("go to", index);
+
+      if (!!controller && (index === 0 || index > 0)) {
+        controller.goTo(index, () => {
+        //   console.log("went to", index);
+          $$invalidate('current', current = index);
         });
-
-
-		autoplay && setInterval(right, autoplay);
-
-		return () => {
-			autoplay && clearTimeout(timer);
-			controller.destroy();
-		}
-	});
-	
-	function left () {
-		current--; $$invalidate('current', current);
-		$$invalidate('current', current %= pips.length);
-		controller.prev(1,goTo(current-1));
-	}
-	
-	function right () {
-		current++; $$invalidate('current', current);
-		$$invalidate('current', current %= pips.length);
-		controller.next(1,goTo(current-1));
-	}
-
-	function goTo (index) {
-		console.log("go to",index);
-		
-		if(!!controller&&(index===0||index>0)) {
-			controller.goTo(index,()=>{
-				console.log("went to",index);
-				$$invalidate('current', current = index);
-			});
-		}
-		
-	}
+      }
+  }
 
 	let { $$slots = {}, $$scope } = $$props;
 
@@ -834,7 +826,7 @@ function instance($$self, $$props, $$invalidate) {
 class Carousel extends SvelteComponent {
 	constructor(options) {
 		super();
-		if (!document_1.getElementById("svelte-16zwfyy-style")) add_css();
+		if (!document_1.getElementById("svelte-jrqjob-style")) add_css();
 		init(this, options, instance, create_fragment, safe_not_equal, ["perPage", "loop", "autoplay", "go", "current"]);
 	}
 }
