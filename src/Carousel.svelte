@@ -70,13 +70,13 @@
 	function left () {
 		current--;
 		current %= pips.length
-		controller.prev(1,goTo(current))
+		controller.prev(1,goTo(current-1))
 	}
 	
 	function right () {
 		current++;
 		current %= pips.length
-		controller.next(1,goTo(current))
+		controller.next(1,goTo(current-1))
 	}
 
 	function goTo (index) {

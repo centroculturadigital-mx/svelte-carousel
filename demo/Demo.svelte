@@ -1,9 +1,76 @@
 <div class="demo">
-	<Carousel>
+	<Carousel perPage={{
+        320: 1,
+		1200: 2
+      }} loop={false} startIndex={1} easing={'ease-out'}>
 		<span class="control" slot="left-control">
 			<ChevronLeftIcon />
 		</span>
 		<div class="slide-content">
+			<header style="background-image: url(//placekitten.com/315)">
+				
+			</header>
+			<section>
+				Hello I am kitten
+			</section>
+		</div>
+		<div class="slide-content">
+			<header style="background-image: url(//placekitten.com/230)">
+				
+			</header>
+			<section>
+				I am fluffy
+			</section>
+		</div>
+		<div class="slide-content">
+			<header style="background-image: url(//placekitten.com/180)">
+				
+			</header>
+			<section>
+				I enjoy wool
+			</section>
+		</div>
+		<div class="slide-content">
+			<header style="background-image: url(//placekitten.com/320)">
+				
+			</header>
+			<section>
+				I eat beans
+			</section>
+		</div>
+				<div class="slide-content">
+			<header style="background-image: url(//placekitten.com/315)">
+				
+			</header>
+			<section>
+				Hello I am kitten
+			</section>
+		</div>
+		<div class="slide-content">
+			<header style="background-image: url(//placekitten.com/230)">
+				
+			</header>
+			<section>
+				I am fluffy
+			</section>
+		</div>
+		<div class="slide-content">
+			<header style="background-image: url(//placekitten.com/180)">
+				
+			</header>
+			<section>
+				I enjoy wool
+			</section>
+		</div>
+		<div class="slide-content">
+			<header style="background-image: url(//placekitten.com/320)">
+				
+			</header>
+			<section>
+				I eat beans
+			</section>
+		</div>
+				<div class="slide-content">
 			<header style="background-image: url(//placekitten.com/315)">
 				
 			</header>
