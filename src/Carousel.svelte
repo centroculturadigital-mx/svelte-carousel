@@ -10,6 +10,7 @@
   export let autoplay = 0;
   export let go = 0;
   export let current = 0;
+  export let useKeys = false;
 
   let id;
   let siema;
@@ -35,18 +36,20 @@
     });
 
     document.addEventListener("keydown", event => {
-      switch (event.keyCode) {
-        case 32:
-          right();
-          break;
-        case 37:
-        case 38:
-          left();
-          break;
-        case 39:
-        case 40:
-          right();
-          break;
+      if (useKeys) {
+		switch (event.keyCode) {
+			case 32:
+			right();
+			break;
+			case 37:
+			case 38:
+			left();
+			break;
+			case 39:
+			case 40:
+			right();
+			break;
+		}
       }
     });
 
